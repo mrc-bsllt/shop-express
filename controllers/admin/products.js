@@ -1,13 +1,15 @@
-const products = []
+const Product = require('../../models/Product')
 
 const addProduct = (req, res, next) => {
-  const newProduct = req.body
-  products.push({ title: newProduct.title, price: '19,99€', createdAt: new Date, updatedAt: new Date })
+  const product = new Product(req.body.title)
+  product.save()
+
   res.redirect('/')
 }
 
 const getProducts = (req, res, next) => {
+  const products = Product.getProducts()
   res.render('admin/products', { products, path: 'products' })
 }
 
-module.exports = { addProduct, getProducts, products }
+module.exports = { addProduct, getProducts }
