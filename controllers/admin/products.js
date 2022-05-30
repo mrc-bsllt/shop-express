@@ -8,8 +8,9 @@ const addProduct = (req, res, next) => {
 }
 
 const getProducts = (req, res, next) => {
-  const products = Product.getProducts()
-  res.render('admin/products', { products, path: 'products' })
+  Product.getProducts(products => {
+    res.render('admin/products', { products, path: 'products' })
+  })
 }
 
 module.exports = { addProduct, getProducts }
