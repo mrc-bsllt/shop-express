@@ -14,6 +14,7 @@ const { adminRoutes } = require('./routes/admin')
 app.use(userRoutes)
 app.use('/admin', adminRoutes)
 app.use('/', (req, res, next) => {
-  res.render('404', { path: '404' })
+  res.status(404).render('404', { path: '404' })
 })
+
 app.listen(3000)
