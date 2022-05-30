@@ -6,4 +6,8 @@ const addProduct = (req, res, next) => {
   res.redirect('/')
 }
 
-module.exports = { addProduct, products }
+const getProducts = (req, res, next) => {
+  res.render('admin/products', { products })
+}
+
+module.exports = { addProduct, getProducts, products }

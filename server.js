@@ -9,6 +9,9 @@ app.set('view engine', 'ejs')
 app.use(express.static(path.join(__dirname, 'public')))
 
 const { userRoutes } = require('./routes/user')
+const { adminRoutes } = require('./routes/admin')
+
 app.use(userRoutes)
+app.use('/admin', adminRoutes)
 
 app.listen(3000)
