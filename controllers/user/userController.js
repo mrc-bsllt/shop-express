@@ -11,7 +11,10 @@ const productsPage = (req, res, next) => {
 }
 
 const productPage = (req, res, next) => {
-  res.render('user/product', { path: 'product' })
+  const id = +req.params.id
+  Product.getProductById(id, (product) => {
+    res.render('user/product', { product, path: 'product' })
+  })
 }
 
 const cartPage = (req, res, next) => {

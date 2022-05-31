@@ -14,6 +14,7 @@ const getAllProductsFromFile = (callback) => {
 
 module.exports = class Product {
   constructor(prod) {
+    this.id = Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000
     this.title = prod.title
     this.image_url = prod.image_url
     this.description = prod.description
@@ -33,5 +34,13 @@ module.exports = class Product {
 
   static getProducts(callback) {
     getAllProductsFromFile(callback)
+  }
+
+  static getProductById(id, callback) {
+    fs.readFile(p, (err, content) => {
+      const products = JSON.parse(content)
+      const product = products.find(prod => prod.id === id)
+      callback(product)
+    })
   }
 }

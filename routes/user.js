@@ -10,7 +10,7 @@ const { homePage,
 
 router.get('/', homePage)
 router.get('/products', productsPage)
-router.get(`/product/`, productPage)
+router.get(`/products/:id`, productPage)
 router.get('/cart', cartPage)
 router.get('/checkout', checkoutPage)
 router.get('/orders', ordersPage)
