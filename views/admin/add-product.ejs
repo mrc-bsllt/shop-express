@@ -6,25 +6,7 @@
 <body>
   <%- include('../partials/header') %>
   <main>
-    <form class="product-form" action="/admin/add-product" method="POST">
-        <div class="form-control">
-            <label for="title">Title</label>
-            <input type="text" name="title" id="title">
-        </div>
-        <div class="form-control">
-          <label for="image_url">Image URL</label>
-          <input type="text" name="image_url" id="image_url">
-        </div>
-        <div class="form-control">
-          <label for="description">Description</label>
-          <textarea name="description" id="description" cols="30" rows="10"></textarea>
-        </div>
-        <div class="form-control">
-          <label for="price">Price</label>
-          <input type="number" name="price" id="price" step="0.01">
-        </div>
-        <button class="btn" type="submit">Add Product</button>
-    </form>
+    <%- include('../partials/add_edit-form', { product: null }) %>
   </main>
 
 <%- include('../partials/footer') %>
