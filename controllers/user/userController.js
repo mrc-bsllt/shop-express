@@ -20,6 +20,11 @@ const productPage = (req, res, next) => {
 const cartPage = (req, res, next) => {
   res.render('user/cart', { path: 'cart' })
 }
+const cartPost = (req, res, next) => {
+  const id = req.body.product_id
+  console.log(id)
+  res.render('user/cart', { path: 'cart' })
+}
 
 const checkoutPage = (req, res, next) => {
   res.render('user/checkout', { path: 'checkout' })
@@ -29,4 +34,4 @@ const ordersPage = (req, res, next) => {
   res.render('user/orders', { path: 'orders' })
 }
 
-module.exports = { homePage, productsPage, productPage, cartPage, checkoutPage, ordersPage }
+module.exports = { homePage, productsPage, productPage, cartPage, cartPost, checkoutPage, ordersPage }
