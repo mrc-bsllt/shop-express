@@ -13,7 +13,7 @@ const productsPage = (req, res, next) => {
 const productPage = (req, res, next) => {
   const id = +req.params.id
   Product.getProductById(id, (product) => {
-    res.render('user/product', { product, path: 'product' })
+    res.render('user/product', { product, path: product.title })
   })
 }
 
