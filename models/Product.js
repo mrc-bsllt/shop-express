@@ -37,8 +37,7 @@ module.exports = class Product {
   }
 
   static getProductById(id, callback) {
-    fs.readFile(p, (err, content) => {
-      const products = JSON.parse(content)
+    getAllProductsFromFile(products => {
       const product = products.find(prod => prod.id === id)
       callback(product)
     })
