@@ -1,4 +1,5 @@
 const Product = require('../../models/Product')
+const Cart = require('../../models/Cart')
 
 const homePage = (req, res, next) => {
   res.render('user/home-page', { path: 'homepage' })
@@ -21,9 +22,11 @@ const cartPage = (req, res, next) => {
   res.render('user/cart', { path: 'cart' })
 }
 const cartPost = (req, res, next) => {
-  const id = req.body.product_id
-  console.log(id)
-  res.render('user/cart', { path: 'cart' })
+  const id = +req.body.product_id
+  Product.getProductById(id, (product) => {
+    Cart.addToCart(id, product.price)
+    res.render('user/cart', { path: 'cart' })
+  })
 }
 
 const checkoutPage = (req, res, next) => {

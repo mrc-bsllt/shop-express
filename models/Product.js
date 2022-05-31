@@ -18,7 +18,7 @@ module.exports = class Product {
     this.title = prod.title
     this.image_url = prod.image_url
     this.description = prod.description
-    this.price = prod.price
+    this.price = +prod.price
     this.createdAt = new Date()
     this.updatedAt = new Date()
   }
