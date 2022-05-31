@@ -2,7 +2,7 @@ const Product = require('../../models/Product')
 
 // Add product POST
 const addProduct = (req, res, next) => {
-  const product = new Product(req.body.title)
+  const product = new Product(req.body)
   product.save()
 
   res.redirect('/products')

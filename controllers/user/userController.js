@@ -22,4 +22,8 @@ const checkoutPage = (req, res, next) => {
   res.render('user/checkout', { path: 'checkout' })
 }
 
-module.exports = { homePage, productsPage, productPage, cartPage, checkoutPage }
+const ordersPage = (req, res, next) => {
+  res.render('user/orders', { path: 'orders' })
+}
+
+module.exports = { homePage, productsPage, productPage, cartPage, checkoutPage, ordersPage }

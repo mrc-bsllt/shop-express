@@ -13,9 +13,11 @@ const getAllProductsFromFile = (callback) => {
 }
 
 module.exports = class Product {
-  constructor(title) {
-    this.title = title
-    this.price = '19,99€'
+  constructor(prod) {
+    this.title = prod.title
+    this.image_url = prod.image_url
+    this.description = prod.description
+    this.price = prod.price
     this.createdAt = new Date()
     this.updatedAt = new Date()
   }
