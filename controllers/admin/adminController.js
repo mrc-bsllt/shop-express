@@ -22,8 +22,13 @@ const editProductPage = (req, res, next) => {
 }
 // POST edit product
 const editProduct = (req, res, next) => {
+  req.body.id = +req.body.id
+  if(typeof req.body.price === 'string') {
+    req.body.price = +req.body.price
+  }
+  
   const editedProduct = { ...req.body, updatedAt: new Date() }
-  console.log(editedProduct)
+  Product.editProduct(editedProduct)
   res.redirect('/products')
 }
 

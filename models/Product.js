@@ -43,4 +43,15 @@ module.exports = class Product {
       callback(product)
     })
   }
+
+  static editProduct(editedProduct) {
+    const id = +editedProduct.id
+    getAllProductsFromFile(products => {
+      const productIndex = products.findIndex(prod => prod.id === id)
+      products[productIndex] = editedProduct
+      fs.writeFile(p, JSON.stringify(products), (error) => {
+        console.log(error)
+      })
+    })
+  }
 }
