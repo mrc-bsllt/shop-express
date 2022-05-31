@@ -13,6 +13,20 @@ const addProductPage = (req, res, next) => {
   res.render('admin/add-product', { path: 'add-product' })
 }
 
+// GET edit product page
+const editProductPage = (req, res, next) => {
+  const id = +req.params.id
+  Product.getProductById(id, product => {
+    res.render('admin/edit-product', { product, path: 'edit-product' })
+  })
+}
+// POST edit product
+const editProduct = (req, res, next) => {
+  const editedProduct = { ...req.body, updatedAt: new Date() }
+  console.log(editedProduct)
+  res.redirect('/products')
+}
+
 // GET admin products list
 const productsPage = (req, res, next) => {
   Product.getProducts(products => {
@@ -20,4 +34,4 @@ const productsPage = (req, res, next) => {
   })
 }
 
-module.exports = { addProduct, addProductPage, productsPage }
+module.exports = { addProduct, addProductPage, editProductPage, editProduct, productsPage }

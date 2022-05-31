@@ -3,6 +3,7 @@ const path = require('path')
 const rootDir = require('../utils/path')
 
 const p = path.join(rootDir, 'data', 'products.json')
+
 const getAllProductsFromFile = (callback) => {
   fs.readFile(p, (err, content) => {
     if(err) {
