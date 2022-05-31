@@ -1,9 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-const { getHomePage } = require('../controllers/user/home-page')
+const { homePage, productsPage, cartPage } = require('../controllers/user/userController')
 
-//Home Page
-router.get('/', getHomePage)
-
+router.get('/', homePage)
+router.get('/products', productsPage)
+router.get('/cart', cartPage)
 module.exports = { userRoutes: router }
