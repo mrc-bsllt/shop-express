@@ -24,7 +24,7 @@ const cartPage = (req, res, next) => {
 const cartPost = (req, res, next) => {
   const id = +req.body.product_id
   Product.getProductById(id, (product) => {
-    Cart.addToCart(id, product.price)
+    Cart.addToCart(product)
     res.render('user/cart', { path: 'cart' })
   })
 }
