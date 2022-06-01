@@ -8,7 +8,13 @@
   <% if(products.length) { %>
     <ul>
       <% products.forEach(product => { %>
-       <li><%= product.title %> - <strong>Quantity: <%= product.quantity %></strong></li>
+       <li>
+         <%= product.title %> - <strong>Quantity: <%= product.quantity %></strong>
+         <form action="/cart/remove" method="POST">
+           <input type="hidden" name="id" value="<%= product.id %>">
+           <button type="submit">Remove</button>
+         </form>
+        </li>
       <% }) %>
     </ul>
     <p>TOTAL: <%= totalValue %></p>

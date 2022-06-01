@@ -31,6 +31,12 @@ const cartPost = (req, res, next) => {
     })
   })
 }
+const cartRemove = (req, res, next) => {
+  const id = +req.body.id
+  Cart.deleteProduct(id, cart => {
+    res.render('user/cart', { products: cart.products, totalValue: cart.totalValue, path: 'cart' })
+  })
+}
 
 const checkoutPage = (req, res, next) => {
   res.render('user/checkout', { path: 'checkout' })
@@ -40,4 +46,13 @@ const ordersPage = (req, res, next) => {
   res.render('user/orders', { path: 'orders' })
 }
 
-module.exports = { homePage, productsPage, productPage, cartPage, cartPost, checkoutPage, ordersPage }
+module.exports = { 
+  homePage, 
+  productsPage, 
+  productPage, 
+  cartPage, 
+  cartPost, 
+  cartRemove, 
+  checkoutPage, 
+  ordersPage 
+}

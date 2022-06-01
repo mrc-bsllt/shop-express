@@ -44,7 +44,7 @@ module.exports = class Cart {
     })
   }
 
-  static deleteProduct(id) {
+  static deleteProduct(id, callback = false) {
     fs.readFile(p, (error, content) => {
       if(error) return
 
@@ -56,7 +56,11 @@ module.exports = class Cart {
       cart.totalValue -= productToDelete.price * productToDelete.quantity
       cart.products.splice(indexToDelete, 1)
       fs.writeFile(p, JSON.stringify(cart), (error) => {
-        console.log(error)
+        if(!error && callback) {
+          callback(cart)
+        } else {
+          console.log(error)
+        }
       })
     })
   }
