@@ -28,8 +28,9 @@ const editProduct = (req, res, next) => {
   }
   
   const editedProduct = { ...req.body, updatedAt: new Date() }
-  Product.editProduct(editedProduct)
-  res.redirect('/products')
+  Product.editProduct(editedProduct, () => {
+    res.redirect('/admin/products')
+  })
 }
 
 // GET admin products list
@@ -39,4 +40,11 @@ const productsPage = (req, res, next) => {
   })
 }
 
-module.exports = { addProduct, addProductPage, editProductPage, editProduct, productsPage }
+// POST delete product
+const deleteProduct = (req, res, next) => {
+  const id = +req.body.id
+  Product.deleteProduct(id)
+  res.redirect('/admin/products')
+}
+
+module.exports = { addProduct, addProductPage, editProductPage, editProduct, productsPage, deleteProduct }

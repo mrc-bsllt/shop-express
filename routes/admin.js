@@ -5,7 +5,8 @@ const { addProduct,
         addProductPage, 
         editProductPage,
         editProduct,
-        productsPage } = require('../controllers/admin/adminController')
+        productsPage,
+        deleteProduct } = require('../controllers/admin/adminController')
 
 router.post('/add-product', addProduct)
 router.get('/add-product', addProductPage)
@@ -14,5 +15,7 @@ router.get('/edit/:id', editProductPage)
 router.post('/edit-product', editProduct)
 
 router.get('/products', productsPage)
+
+router.post('/delete', deleteProduct)
 
 module.exports = { adminRoutes: router }

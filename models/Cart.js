@@ -28,4 +28,21 @@ module.exports = class Cart {
       })
     })
   }
+
+  static deleteProduct(id) {
+    fs.readFile(p, (error, content) => {
+      if(error) return
+
+      const cart = JSON.parse(content)
+      const indexToDelete = cart.products.findIndex(product => product.id === id)
+      if(indexToDelete < 0) return 
+
+      const productToDelete = cart.products[indexToDelete]
+      cart.totalValue -= productToDelete.price * productToDelete.quantity
+      cart.products.splice(indexToDelete, 1)
+      fs.writeFile(p, JSON.stringify(cart), (error) => {
+        console.log(error)
+      })
+    })
+  }
 }
