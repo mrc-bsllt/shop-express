@@ -1,17 +1,10 @@
 const path = require('path')
 const express = require('express')
-const db = require('./utils/database')
+const sequelize = require('./utils/database')
+
 const bodyParser = require('body-parser')
 
 const app = express()
-
-db.execute('SELECT * FROM products')
-  .then(response => {
-    console.log(response)
-  })
-  .catch(error => {
-    console.log(error)
-  })
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.set('view engine', 'ejs')
@@ -26,4 +19,8 @@ app.use('/', (req, res, next) => {
   res.status(404).render('404', { path: '404' })
 })
 
-app.listen(3000)
+sequelize.sync()
+  .then(() => {
+    app.listen(3000)
+  })
+  .catch(error => console.log(error))

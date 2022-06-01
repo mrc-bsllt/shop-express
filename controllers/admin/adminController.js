@@ -4,8 +4,10 @@ const Product = require('../../models/Product')
 const addProduct = (req, res, next) => {
   const product = new Product(req.body)
   product.save()
-
-  res.redirect('/products')
+    .then(() => {
+      res.redirect('/admin/products')
+    })
+    .catch(error => console.log(error))
 }
 
 // GET add product form page
@@ -35,9 +37,11 @@ const editProduct = (req, res, next) => {
 
 // GET admin products list
 const productsPage = (req, res, next) => {
-  Product.getProducts(products => {
-    res.render('admin/products', { products, path: 'admin-products' })
-  })
+  Product.getProducts()
+    .then(([products, filedData]) => {
+      res.render('admin/products', { products, path: 'admin-products' })
+    })
+    .catch(error => console.log(error))
 }
 
 // POST delete product
