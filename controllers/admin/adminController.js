@@ -43,8 +43,9 @@ const productsPage = (req, res, next) => {
 // POST delete product
 const deleteProduct = (req, res, next) => {
   const id = +req.body.id
-  Product.deleteProduct(id)
-  res.redirect('/admin/products')
+  Product.deleteProduct(id, () => {
+    res.redirect('/admin/products')
+  })
 }
 
 module.exports = { addProduct, addProductPage, editProductPage, editProduct, productsPage, deleteProduct }

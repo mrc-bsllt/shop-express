@@ -58,7 +58,7 @@ module.exports = class Product {
     })
   }
 
-  static deleteProduct(id) {
+  static deleteProduct(id, callback) {
     getAllProductsFromFile(products => {
       const productIndex = products.findIndex(prod => prod.id === id)
       const deletedProduct = products[productIndex]
@@ -66,6 +66,9 @@ module.exports = class Product {
       fs.writeFile(p, JSON.stringify(products), (error) => {
         if(!error) {
           Cart.deleteProduct(deletedProduct.id)
+          callback()
+        }else {
+          console.log(error)
         }
       })
     })
