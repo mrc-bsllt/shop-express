@@ -3,7 +3,7 @@ const Product = require('../../models/Product')
 // Add product POST
 const addProduct = (req, res, next) => {
   const { title, price, image_url, description } = req.body
-  Product.create({ title, price, image_url, description })
+  req.USER.createProduct({ title, price, image_url, description })
     .then(() => {
       res.redirect('/admin/products')
     })
@@ -42,7 +42,7 @@ const editProduct = (req, res, next) => {
 
 // GET admin products list
 const productsPage = (req, res, next) => {
-  Product.findAll()
+  req.USER.getProducts()
     .then(products => {
       res.render('admin/products', { products, path: 'admin-products' })
     }).catch(error => console.log(error))
