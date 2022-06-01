@@ -2,8 +2,8 @@ const Product = require('../../models/Product')
 
 // Add product POST
 const addProduct = (req, res, next) => {
-  const product = new Product(req.body)
-  product.save()
+  const { title, price, image_url, description } = req.body
+  Product.create({ title, price, image_url, description })
     .then(() => {
       res.redirect('/admin/products')
     })
@@ -18,38 +18,46 @@ const addProductPage = (req, res, next) => {
 // GET edit product page
 const editProductPage = (req, res, next) => {
   const id = +req.params.id
-  Product.getProductById(id, product => {
-    res.render('admin/edit-product', { product, path: 'edit-product' })
-  })
+  Product.findByPk(id)
+    .then(product => {
+      res.render('admin/edit-product', { product, path: 'edit-product' })
+    }).catch(error => console.log(error))
 }
 // POST edit product
-const editProduct = (req, res, next) => {
-  req.body.id = +req.body.id
-  if(typeof req.body.price === 'string') {
-    req.body.price = +req.body.price
-  }
-  
-  const editedProduct = { ...req.body, updatedAt: new Date() }
-  Product.editProduct(editedProduct, () => {
-    res.redirect('/admin/products')
-  })
+const editProduct = (req, res, next) => { 
+  const data = req.body
+  const id = +data.id
+  Product.findByPk(id)
+    .then(product => {
+      product.title = data.title
+      product.image_url = data.image_url
+      product.description = data.description
+      product.price = +data.price
+      return product.save()
+    })
+    .then(() => {
+      res.redirect('/admin/products')
+    }).catch(error => console.log(error))
 }
 
 // GET admin products list
 const productsPage = (req, res, next) => {
-  Product.getProducts()
-    .then(([products, filedData]) => {
+  Product.findAll()
+    .then(products => {
       res.render('admin/products', { products, path: 'admin-products' })
-    })
-    .catch(error => console.log(error))
+    }).catch(error => console.log(error))
 }
 
 // POST delete product
 const deleteProduct = (req, res, next) => {
   const id = +req.body.id
-  Product.deleteProduct(id, () => {
-    res.redirect('/admin/products')
-  })
+  Product.findByPk(id)
+    .then(product => {
+      product.destroy()
+    })
+    .then(() => {
+      res.redirect('/admin/products')
+    }).catch(error => console.log(error))
 }
 
 module.exports = { addProduct, addProductPage, editProductPage, editProduct, productsPage, deleteProduct }

@@ -6,20 +6,18 @@ const homePage = (req, res, next) => {
 }
 
 const productsPage = (req, res, next) => {
-  Product.getProducts()
-    .then(([products, fieldData]) => {
+  Product.findAll()
+    .then(products => {
       res.render('user/products', { products, path: 'user-products' })
-    })
-    .catch(error => console.log(error))
+    }).catch(error => console.log(error))
 }
 
 const productPage = (req, res, next) => {
   const id = +req.params.id
-  Product.getProductById(id)
-    .then(([product]) => {
-      res.render('user/product', { product: product[0], path: product.title })
-    })
-    .catch(error => console.log(error))
+  Product.findByPk(id)
+    .then(product => {
+      res.render('user/product', { product, path: product.title })
+    }).catch(error => console.log(error))
 }
 
 const cartPage = (req, res, next) => {
