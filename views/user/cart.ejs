@@ -4,5 +4,16 @@
 <body>
   <%- include('../partials/header') %>
   <h1>CART PAGE</h1> 
-  
+
+  <% if(products.length) { %>
+    <ul>
+      <% products.forEach(product => { %>
+       <li><%= product.title %> - <strong>Quantity: <%= product.quantity %></strong></li>
+      <% }) %>
+    </ul>
+    <p>TOTAL: <%= totalValue %></p>
+  <% } else { %>
+    <h2>Cart is empty!!!!!</h2>
+  <% } %> 
+
 <%- include('../partials/footer') %>

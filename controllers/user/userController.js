@@ -19,13 +19,16 @@ const productPage = (req, res, next) => {
 }
 
 const cartPage = (req, res, next) => {
-  res.render('user/cart', { path: 'cart' })
+  Cart.getCartProducts(cart => {
+    res.render('user/cart', { products: cart.products, totalValue: cart.totalValue, path: 'cart' })
+  })
 }
 const cartPost = (req, res, next) => {
   const id = +req.body.product_id
   Product.getProductById(id, (product) => {
-    Cart.addToCart(product)
-    res.render('user/cart', { path: 'cart' })
+    Cart.addToCart(product, cart => {
+      res.render('user/cart', { products: cart.products, totalValue: cart.totalValue, path: 'cart' })
+    })
   })
 }
 

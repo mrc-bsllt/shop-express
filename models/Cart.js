@@ -5,7 +5,7 @@ const rootDir = require('../utils/path')
 const p = path.join(rootDir, 'data', 'cart.json')
 
 module.exports = class Cart {
-  static addToCart(product) {
+  static addToCart(product, callback) {
     let cart = { products: [], totalValue: 0 }
 
     fs.readFile(p, (error, content) => {
@@ -24,8 +24,23 @@ module.exports = class Cart {
       cart.totalValue += product.price
 
       fs.writeFile(p, JSON.stringify(cart), (error) => {
-        console.log(error)
+        if(!error) {
+          callback(cart)
+        } else {
+          console.log(error)
+        }
       })
+    })
+  }
+
+  static getCartProducts(callback) {
+    fs.readFile(p, (error, content) => {
+      if(!error) {
+        const cart = JSON.parse(content)
+        callback(cart)
+      } else {
+        console.log(error)
+      } 
     })
   }
 
