@@ -1,4 +1,4 @@
-const Product = require('../../models/Product')
+const Product = require('../models/Product')
 
 // Add product POST
 const addProduct = (req, res, next) => {

@@ -17,6 +17,7 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 const { userRoutes } = require('./routes/user')
 const { adminRoutes } = require('./routes/admin')
+const user = require('./routes/user')
 
 app.use((req, res, next) => {
   User.findByPk(1)
@@ -45,22 +46,16 @@ Product.belongsToMany(Cart, { through: CartProduct })
 sequelize.sync()
   .then(() => {
     return User.findByPk(1)
-  })
-  .then(user => {
+  }).then(user => {
     if(!user) {
-      return User.create({ username: 'Marco', email: 'mrc@test.com' })
-    }
-    return user
-  })
-  .then(() => {
-    return Cart.findByPk(1)
-  })
-  .then(cart => {
-    if(!cart) {
-      return Cart.create()
-    }
-    return cart
-  })
-  .then(() => {
-    app.listen(3000)
-  }).catch(error => console.log(error))
+      return User.create({ username: 'Marco', email: 'mrc@test.com' }).then(user => {
+        user.createCart().then(cart => {
+          app.listen(3000)
+        }).catch(error => console.log(error))
+      }).catch(error => console.log(error))
+    } else {
+      app.listen(3000)
+    }}).catch(error => console.log(error))
+
+
+  

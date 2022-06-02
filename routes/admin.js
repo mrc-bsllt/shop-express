@@ -6,7 +6,7 @@ const { addProduct,
         editProductPage,
         editProduct,
         productsPage,
-        deleteProduct } = require('../controllers/admin/adminController')
+        deleteProduct } = require('../controllers/adminController')
 
 router.post('/add-product', addProduct)
 router.get('/add-product', addProductPage)

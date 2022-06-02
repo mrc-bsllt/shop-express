@@ -8,7 +8,7 @@ const { homePage,
         cartPost,
         cartRemove,
         checkoutPage, 
-        ordersPage } = require('../controllers/user/userController')
+        ordersPage } = require('../controllers/userController')
 
 router.get('/', homePage)
 
