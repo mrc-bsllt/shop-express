@@ -7,7 +7,8 @@ const { homePage,
         cartPage, 
         cartPost,
         cartRemove,
-        checkoutPage, 
+        checkoutPage,
+        createOrder, 
         ordersPage } = require('../controllers/userController')
 
 router.get('/', homePage)
@@ -21,6 +22,7 @@ router.post('/cart/remove', cartRemove)
 
 router.get('/checkout', checkoutPage)
 
+router.post('/create-order', createOrder)
 router.get('/orders', ordersPage)
 
 module.exports = { userRoutes: router }

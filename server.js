@@ -6,6 +6,8 @@ const Product = require('./models/Product')
 const User = require('./models/User')
 const Cart = require('./models/Cart')
 const CartProduct = require('./models/CartProduct')
+const Order = require('./models/Order')
+const OrderProduct = require('./models/OrderProduct')
 
 const bodyParser = require('body-parser')
 
@@ -42,8 +44,14 @@ Cart.belongsTo(User)
 Cart.belongsToMany(Product, { through: CartProduct })
 Product.belongsToMany(Cart, { through: CartProduct })
 
+User.hasMany(Order)
+Order.belongsTo(User)
+
+Order.belongsToMany(Product, { through: OrderProduct })
+Product.belongsToMany(Order, { through: OrderProduct })
+
 // sequelize.sync({ force: true })
-sequelize.sync({ force: true })
+sequelize.sync()
   .then(() => {
     return User.findByPk(1)
   }).then(user => {

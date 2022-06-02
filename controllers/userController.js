@@ -74,8 +74,27 @@ const checkoutPage = (req, res, next) => {
   res.render('user/checkout', { path: 'checkout' })
 }
 
+const createOrder = (req, res, next) => {
+  const total_price = +req.body.total_price
+  return req.USER.getCart().then(cart => {
+    cart.getProducts().then(products => {
+      req.USER.createOrder({ total_price }).then(order => {
+        order.addProducts(products.map(product => {
+          product.order_product = { quantity: product.cart_product.quantity }
+          return product
+        })).then(() => {
+          cart.setProducts(null)
+          res.redirect('/orders')
+        }).catch(error => console.log(error))
+      }).catch(error => console.log(error))
+    }).catch(error => console.log(error))
+  }).catch(error => console.log(error))
+}
+
 const ordersPage = (req, res, next) => {
-  res.render('user/orders', { path: 'orders' })
+  req.USER.getOrders({ include: ['products'] }).then(orders => {
+    res.render('user/orders', { orders, path: 'orders' })
+  }).catch(error => console.log(error))
 }
 
 module.exports = { 
@@ -86,5 +105,6 @@ module.exports = {
   cartPost, 
   cartRemove, 
   checkoutPage, 
+  createOrder,
   ordersPage 
 }

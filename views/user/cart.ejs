@@ -18,6 +18,13 @@
       <% }) %>
     </ul>
     <p>TOTAL: <%= totalValue %></p>
+
+    <div>
+      <form action="/create-order" method="POST">
+        <input type="hidden" name="total_price" value="<%= totalValue %>">
+        <button type="submit" class="btn">Order now</button>
+      </form>
+    </div>
   <% } else { %>
     <h2>Cart is empty!!!!!</h2>
   <% } %> 
