@@ -28,6 +28,7 @@ const cartPage = (req, res, next) => {
     }).catch(error => console.log(error))
   }).catch(error => console.log(error))
 }
+
 const cartPost = (req, res, next) => {
   const id = +req.body.product_id
   req.USER.getCart().then(cart => {
@@ -56,9 +57,14 @@ const cartPost = (req, res, next) => {
 
 const cartRemove = (req, res, next) => {
   const id = +req.body.id
-  Cart.deleteProduct(id, cart => {
-    res.render('user/cart', { products: cart.products, totalValue: cart.totalValue, path: 'cart' })
-  })
+  req.USER.getCart().then(cart => {
+    return cart.getProducts({ where: { id } })
+  }).then(products => {
+    const product = products[0]
+    return product.cart_product.destroy()
+  }).then(() => {
+    res.redirect('/cart')
+  }).catch(error => console.log(error))
 }
 
 const checkoutPage = (req, res, next) => {
