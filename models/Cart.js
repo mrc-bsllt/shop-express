@@ -7,10 +7,6 @@ const Cart = sequelize.define('cart', {
     allowNull: false,
     autoIncrement: true,
     primaryKey: true
-  },
-  total_value: {
-    type: Sequelize.DOUBLE,
-    defaultValue: 0
   }
 })
 
